@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ticTacToe {
     class Program {
@@ -14,12 +14,13 @@ namespace ticTacToe {
                 bool winnerX = false;
                 bool winnerO = false;
                 bool emptySpace = true;
+                int turnCount = 0;
 
 
 
                 DrawBoard(board);
 
-                while (winnerX == false && winnerO == false) {
+                while (winnerX == false && winnerO == false&&turnCount!=9) {
 
 
                     if (winnerO == false) {
@@ -42,14 +43,18 @@ namespace ticTacToe {
                             yCoordinate = ValidateYCoordinate(yCoordinate);
 
                             emptySpace = ValidateEmptySpace(board, xCoordinate, yCoordinate);
-                        }
+                        }//end while
 
 
                         PlaceMarker(board, markerX, xCoordinate, yCoordinate);
-
+                        turnCount += 1;
                         winnerX = WinCheckX(board);
                         //win check
-                    }
+                        if (turnCount == 9 && winnerX == false) {
+                            Console.WriteLine("The Game Is A Tie. Please Play Again.");
+                            break;
+                        }
+                    }//end if
                     if (winnerX == false) {
                         //player Y
                         xCoordinate = PromptInt("Player O please enter an x coordinate [0,1,2]: ");
@@ -71,12 +76,16 @@ namespace ticTacToe {
                             yCoordinate = ValidateYCoordinate(yCoordinate);
 
                             emptySpace = ValidateEmptySpace(board, xCoordinate, yCoordinate);
-                        }
+                        }//end while
                         PlaceMarker(board, markerO, xCoordinate, yCoordinate);
-
+                        turnCount += 1;
                         winnerO = WinCheckO(board);
                         //win check
-                    }
+                        if (turnCount == 9 && winnerO == false) {
+                            Console.WriteLine("The Game Is A Tie. Please Play Again.");
+                            break;
+                        }
+                    }//end if
                 }//end while to loop game
 
                 //ask to run again
